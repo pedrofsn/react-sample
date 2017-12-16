@@ -12,9 +12,6 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Gerenciamento Financeiro</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
         <br />
         <ResumoConta />
       </div>

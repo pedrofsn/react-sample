@@ -19,32 +19,27 @@ export class ResumoConta extends React.Component<{}, State> {
           nome : "Banco do Brasil",
           conta : 94080,
           saldo : 2000.99
+        },
+        {
+          id: 2,
+          nome : "Itaú",
+          conta : 94080,
+          saldo : 2000.99
         }
       ]
     };
   }
 
   render() {
-    let jsx = <table style={{ display: "inline-table" }}>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Conta</th>
-          <th>Saldo</th>
-        </tr>
-      </thead>
-      <tbody>
+    let jsx = <select>
         {
           this.state.contas.map(function (obj) {
-            return <tr key={obj.id}>
-              <td>{obj.nome}</td>
-              <td>{obj.conta}</td>
-              <td>{obj.saldo}</td>
-            </tr>
+            return <option key={obj.id}>
+              Nome: {obj.nome} | Conta: {obj.conta} | Saldo: {obj.saldo}
+            </option>
           })
         }
-      </tbody>
-    </table>;
+      </select>;
  
     return jsx;
   }
