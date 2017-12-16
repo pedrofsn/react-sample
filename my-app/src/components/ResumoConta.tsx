@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Conta } from './models/Conta';
+import { Conta } from '../models/Conta';
 
 export default interface Props {
   contas: Conta[];
@@ -14,7 +14,7 @@ export class ResumoConta extends React.Component<Props> {
         {
           contas.map((obj) => {
             return <option key={obj.id}>
-              Nome: {obj.nome} | Conta: {obj.conta} | Saldo: {obj.saldo}
+              Nome: {obj.nome} | Conta: {obj.conta}
             </option>
           })
         }
