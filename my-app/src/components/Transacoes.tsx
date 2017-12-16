@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { Conta } from '../models/Conta';
+import { Transacao } from '../models/Transacao';
 
 export default interface PropsTransacoes {
-  conta_id_selecionada: number,
-  contas: Conta[];
+  transacoes: Transacao[];
 }
 
 export class Transacoes extends React.Component<PropsTransacoes> {
   render() {
-    const { contas, conta_id_selecionada } = this.props;
+    const { transacoes } = this.props;
 
     return (
       <table style={{ display: "inline-table" }}>
@@ -21,24 +20,17 @@ export class Transacoes extends React.Component<PropsTransacoes> {
         </thead>
         <tbody>
           {
-            contas.map(
-              (conta) => {
-
-                console.log("conta: " + conta.id)
-                if (conta.id == conta_id_selecionada && conta.transacoes != null) {
-
-                  conta.transacoes.map(
-                    (transacao) => {
-                      return <tr key={`transacao-${transacao.id}`}>
-                        <td>{transacao.nome}</td>
-                        <td>{transacao.nome}</td>
-                        <td>{transacao.nome}</td>
-                      </tr>
-                    }
-                  ) 
-
-                }
-              })
+            transacoes.map(
+              (transacao) => {
+                return (
+                  <tr key={`transacao-${transacao.id}`}>
+                    <td>{transacao.nome}</td>
+                    <td>{transacao.nome}</td>
+                    <td>{transacao.nome}</td>
+                  </tr>
+                )
+              }
+            )
           }
         </tbody>
       </table>

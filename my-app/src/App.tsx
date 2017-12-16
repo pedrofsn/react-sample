@@ -2,8 +2,9 @@ import * as React from 'react';
 import { ResumoConta } from './components/ResumoConta';
 import { Conta } from './models/Conta';
 import './App.css';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 import { Transacoes } from './components/Transacoes';
+import { Transacao } from './models/Transacao';
 
 const logo = require('./logo.svg');
 /*
@@ -45,23 +46,41 @@ let state = {
 @observer
 class App extends React.Component {
 
-  conta_id_selecionada : number
-  contas : Conta[]
+  contas: Conta[]
+  transacoes: Transacao[]
 
   componentWillMount() {
-    this.conta_id_selecionada = 1
     this.contas = [
       new Conta(
         1,
         "Banco do Brasil",
-        94080
+        94080,
+        0
       ),
       {
         id: 2,
         nome: "Itaú",
-        conta: 94080
+        conta: 94080,
+        saldo: 0
       }
     ]
+
+    this.transacoes = [new Transacao(
+      1,
+      true,
+      "Depósito",
+      new Date(),
+      100,
+      1
+    ),
+    {
+      id: 2,
+      isCredito: true,
+      nome: "Depósito",
+      data: new Date(),
+      valor: 100,
+      conta_id : 2
+    }]
   }
 
   render() {
@@ -75,7 +94,7 @@ class App extends React.Component {
         <ResumoConta contas={this.contas} />
         <br />
         <br />
-        <Transacoes contas={this.contas} conta_id_selecionada={this.conta_id_selecionada} /> 
+        <Transacoes transacoes={this.transacoes} />
       </div>
     );
   }
