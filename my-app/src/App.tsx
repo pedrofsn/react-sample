@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { ResumoConta } from './ResumoConta';
+import { Transacoes } from './Transacoes';
+import { Transacao } from './models/Transacao';
 import { Conta } from './models/Conta';
 import './App.css';
 
@@ -19,6 +21,24 @@ let state = {
       conta: 94080,
       saldo: 2000.99
     }
+  ],
+  transacoes: [
+    new Transacao(
+      1,
+      true,
+      "Depósito no caixa",
+      new Date(),
+      100,
+      1
+    ),
+    {
+      id: 2,
+      isCredito: true,
+      nome: "Depósito no caixa",
+      data: new Date(),
+      valor: 100,
+      conta_id: 1
+    }
   ]
 };
 
@@ -32,6 +52,9 @@ class App extends React.Component {
         </div>
         <br />
         <ResumoConta contas={state.contas} />
+        <br />
+        <br />
+        <Transacoes transacoes={state.transacoes} />
       </div>
     );
   }
