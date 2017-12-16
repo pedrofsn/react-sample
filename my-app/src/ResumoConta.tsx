@@ -1,46 +1,24 @@
 import * as React from 'react';
+import { Conta } from './models/Conta';
 
-interface State {
-  contas: {
-    id: number;
-    nome: string;
-    conta: number;
-    saldo: number;
-  }[];
+export default interface Props {
+  contas: Conta[];
 }
 
-export class ResumoConta extends React.Component<{}, State> {
-  constructor(props : any) {
-    super(props);
-    this.state = {
-      contas: [
-        {
-          id: 1,
-          nome : "Banco do Brasil",
-          conta : 94080,
-          saldo : 2000.99
-        },
-        {
-          id: 2,
-          nome : "Itaú",
-          conta : 94080,
-          saldo : 2000.99
-        }
-      ]
-    };
-  }
-
+export class ResumoConta extends React.Component<Props> {
   render() {
-    let jsx = <select>
+    const { contas } = this.props;
+
+    return (
+      <select>
         {
-          this.state.contas.map(function (obj) {
+          contas.map((obj) => {
             return <option key={obj.id}>
               Nome: {obj.nome} | Conta: {obj.conta} | Saldo: {obj.saldo}
             </option>
           })
         }
-      </select>;
- 
-    return jsx;
+      </select>
+    );
   }
 }
