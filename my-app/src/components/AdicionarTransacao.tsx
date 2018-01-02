@@ -49,7 +49,7 @@ export class AdicionarTransacao extends React.Component<MyProps, {}> {
                 <h3>Adicionar Transação</h3>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div>
-                        <label>Nome</label><br />
+                        <label>Descrição</label><br />
                         <input type="text" ref="nome" />
                     </div>
                     <div>
@@ -66,7 +66,7 @@ export class AdicionarTransacao extends React.Component<MyProps, {}> {
                         <input type="checkbox" ref="credito" />
                         <br />
                     </div>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Lançar transação" />
                     <br />
                 </form>
             </div>
