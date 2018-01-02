@@ -23,7 +23,7 @@ export class Transacoes extends React.Component<PropsTransacoes> {
             transacoes.map(
               (transacao) => {
                 return (
-                  <tr key={`transacao-${transacao.id}`}>
+                  <tr>
                     <td>{transacao.nome}</td>
                     <td>{transacao.nome}</td>
                     <td>{transacao.nome}</td>

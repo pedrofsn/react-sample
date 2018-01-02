@@ -10,15 +10,35 @@ export class ResumoConta extends React.Component<Props> {
     const { contas } = this.props;
 
     return (
-      <select>
+      <div>
         {
-          contas.map((obj) => {
-            return <option key={obj.id}>
-              Nome: {obj.nome} | Conta: {obj.conta}
-            </option>
-          })
+          contas.map(
+            (conta) => {
+              return <div>
+                <br />
+                <br />
+                <strong key={conta.id}> Nome: {conta.nome} | Conta: {conta.conta} | Saldo: {conta.saldo} </strong>
+                <br />
+                {
+                  conta.transacoes.map(
+                    (transacao) => {
+                      return (
+                        <div>
+                          <br />
+                          {transacao.nome}: R$ {transacao.valor.toString()} {transacao.isCredito ? "C" : "D"}
+                          <br />
+                          em {transacao.data.toString()}
+                          <br />
+                        </div>
+                      )
+                    }
+                  )
+                }
+              </div>
+            }
+          )
         }
-      </select>
+      </div>
     );
   }
 }

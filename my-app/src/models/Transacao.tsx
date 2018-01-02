@@ -1,10 +1,8 @@
 export class Transacao {
     constructor(
-        public id: Number,
-        public isCredito : Boolean,
-        public nome : String,
+        public isCredito : boolean,
+        public nome : string,
         public data: Date,
-        public valor: Number,
-        public conta_id: Number
+        public valor: number
     ) {}
 }
