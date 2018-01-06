@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ResumoConta } from './components/ResumoConta';
 import { AdicionarTransacao } from './components/AdicionarTransacao';
+import { AdicionarConta } from './components/AdicionarConta';
 import { Conta } from './models/Conta';
 import './App.css';
 import { Transacao } from './models/Transacao';
@@ -27,6 +28,26 @@ class App extends React.Component<{}, { contas: Conta[] }> {
           ]
         }
       ]
+    }
+  }
+
+  handleAdicionarConta(novaConta: Conta) {
+    let myContas = this.state.contas
+    let match = false
+
+    for (let i = 0; i < myContas.length; i++) {
+      // Conta existe?
+      if (myContas[i].conta === novaConta.conta || novaConta.id === myContas[i].id) {
+        match = true
+        break
+      }
+    }
+
+    if (!match) {
+      myContas.push(novaConta);
+      this.setState({ contas: myContas })
+    } else {
+      alert('Conta já existente')
     }
   }
 
@@ -71,6 +92,9 @@ class App extends React.Component<{}, { contas: Conta[] }> {
         </div>
         <br />
         <ResumoConta contas={this.state.contas} />
+        <br />
+        <br />
+        <AdicionarConta adicionarConta={this.handleAdicionarConta.bind(this)}/>
         <br />
         <br />
         <AdicionarTransacao adicionarTransacao={this.handleAdicionarTransacao.bind(this)} />
