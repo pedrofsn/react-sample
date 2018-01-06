@@ -103,17 +103,20 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
     this.setState({ contas: this.state.contasTemp, contasTemp: this.state.contasTemp, filtrando: false })
   }
 
-  handleFiltrar(nome: String, conta: number/*, valor: number, isCredito: boolean*/) {
-    const contasTemp = new Array<Conta>()
+  private contasTemp = new Array<Conta>()
+
+  handleFiltrar(nome: String, conta: number, valorMenor: number, valorMaior: number, dataMenor: number, dataMaior: number) {
     let contasFiltradas = this.state.contas
 
     if (this.state.contasTemp.length == 0) {
       for (let conta of this.state.contas) {
-        contasTemp.push(conta)
+        var copy = Object.assign({}, conta)
+        this.contasTemp.push(copy)
       }
     } else {
       for (let conta of this.state.contasTemp) {
-        contasTemp.push(conta)
+        var copy = Object.assign({}, conta)
+        this.contasTemp.push(copy)
       }
     }
 
@@ -135,17 +138,27 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
         }
       }
     }
-/*
-    if (
-      (conta == -1 || conta == undefined) &&
-      (nome == '' || nome == undefined)
-    ) {
-      contasFiltradas = contasTemp
-      filtrando = false
-    }
-*/
 
-    this.setState({ contas: contasFiltradas, contasTemp: contasTemp, filtrando: true })
+    if (contasFiltradas.length > 0 && valorMenor != -1) {
+      for (let i = 0; i < contasFiltradas.length; i++) {
+        let transacoes = contasFiltradas[i].transacoes
+
+        if (transacoes != null && transacoes.length > 0) {
+
+          for (let j = 0; j < transacoes.length; j++) {
+            let transacao = transacoes[j]
+
+            if (j > -1 && transacao != null && transacao.valor > valorMenor) {
+              transacoes.splice(j, 1);
+            }
+          }
+        }
+
+        contasFiltradas[i].transacoes = transacoes
+      }
+    }
+
+    this.setState({ contas: contasFiltradas, contasTemp: this.contasTemp, filtrando: true })
   }
 
   render() {

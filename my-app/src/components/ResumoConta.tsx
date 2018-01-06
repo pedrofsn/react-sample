@@ -4,13 +4,13 @@ import { Conta } from '../models/Conta';
 export default interface Props {
   filtrando: boolean;
   contas: Conta[];
-  filtrar: (nome: String, conta: number/*, valor: number, isCredito: boolean*/) => {};
+  filtrar: (nome: String, conta: number, valorMenor : number, valorMaior : number, dataMenor : number, dataMaior : number) => {};
   limparFiltros: () => {};
 }
 
 export class ResumoConta extends React.Component<Props, {}> {
 
-  handleLimparFiltros(e : any) {
+  handleLimparFiltros(e: any) {
     this.props.limparFiltros();
     e.preventDefault()
   }
@@ -18,18 +18,25 @@ export class ResumoConta extends React.Component<Props, {}> {
   handleSubmit(e: any) {
     const inputNome = (this.refs['nome'] as any as HTMLInputElement)
     const inputConta = (this.refs['conta'] as any as HTMLInputElement)
-    // const inputValor = (this.refs['valor'] as any as HTMLInputElement)
-    // const inputCheckbox = (this.refs['credito'] as any as HTMLInputElement)
+    const inputValorMenor = (this.refs['valorMenor'] as any as HTMLInputElement)
+    const inputValorMaior = (this.refs['valorMaior'] as any as HTMLInputElement)
+    const inputDataMenor = (this.refs['dataMenor'] as any as HTMLInputElement)
+    const inputDataMaior = (this.refs['dataMaior'] as any as HTMLInputElement)
 
     const nome = inputNome.value.trim();
     const conta = inputConta.value.trim();
-    // const valor = inputValor.value.trim();
-    // const isCredito = inputCheckbox.checked;
+    const valorMenor = inputValorMenor.value.trim();
+    const valorMaior = inputValorMaior.value.trim();
+    const dataMenor = inputDataMenor.value.trim();
+    const dataMaior = inputDataMaior.value.trim();
 
     let contaNumber = (conta != '') ? parseInt(conta) : -1
-    // let valorNumber = (valor != '') ? parseInt(valor) : -1
+    let valorMenorNumber = (valorMenor != '') ? parseInt(valorMenor) : -1
+    let valorMaiorNumber = (valorMaior != '') ? parseInt(valorMaior) : -1
+    let dataMenorDate = (dataMenor != '') ? Date.parse(dataMenor) : -1
+    let dataMaiorDate = (dataMaior != '') ? Date.parse(dataMaior) : -1
 
-    this.props.filtrar(nome, contaNumber/*, valorNumber, isCredito*/);
+    this.props.filtrar(nome, contaNumber, valorMenorNumber, valorMaiorNumber, dataMenorDate, dataMaiorDate);
 
     e.preventDefault();
   }
@@ -52,6 +59,17 @@ export class ResumoConta extends React.Component<Props, {}> {
                 <td><input type="text" ref="conta" placeholder="Conta exata" disabled={filtrando} /></td>
               </tr>
               <tr>
+                <td>Filtrar transações</td>
+              </tr>
+              <tr>
+                <td><input type="text" ref="valorMenor" placeholder="Valor menor" disabled={filtrando} /></td>
+                <td><input type="text" ref="valorMaior" placeholder="Valor menor" disabled={filtrando} /></td>
+              </tr>
+              <tr>
+                <td><input type="text" ref="dataMenor" placeholder="Data menor" disabled={filtrando} /></td>
+                <td><input type="text" ref="dataMaior" placeholder="Data menor" disabled={filtrando} /></td>
+              </tr>
+              <tr>
                 <td><input type="submit" value="Filtrar" onClick={this.handleSubmit.bind(this)} style={!filtrando ? {} : { display: 'none' }} /></td>
               </tr>
             </tbody>
@@ -59,7 +77,7 @@ export class ResumoConta extends React.Component<Props, {}> {
         </form>
         <br />
         <br />
-        <input type="button" style={filtrando ? {} : { display: 'none' }} value="Limpar filtros aplicados" onClick={this.handleLimparFiltros.bind(this)}/>
+        <input type="button" style={filtrando ? {} : { display: 'none' }} value="Limpar filtros aplicados" onClick={this.handleLimparFiltros.bind(this)} />
         <br />
         <br />
         {
