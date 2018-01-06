@@ -105,7 +105,7 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
 
   handleFiltrar(nome: String, conta: number) {
     const contasTemp = new Array<Conta>()
-    let contasFiltradas = this.state.contas
+    var contasFiltradas = this.state.contas
 
     if (this.state.contasTemp.length == 0) {
       for (let conta of this.state.contas) {
@@ -117,22 +117,13 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
       }
     }
 
-    if (contasFiltradas.length > 0 && nome != '') {
-      for (let i = 0; i < contasFiltradas.length; i++) {
-        let nomeConta = contasFiltradas[i].nome
-        let caso = nomeConta === nome
-        if (!caso && i > -1) {
-          contasFiltradas.splice(i, 1);
-        }
+    if (contasFiltradas.length > 0) {
+      if (nome != '') {
+        contasFiltradas = contasFiltradas.filter(c => c.nome == nome)
       }
-    }
 
-    if (contasFiltradas.length > 0 && conta != -1) {
-      for (let i = 0; i < contasFiltradas.length; i++) {
-        let caso = contasFiltradas[i].conta == conta
-        if (!caso && i > -1) {
-          contasFiltradas.splice(i, 1);
-        }
+      if (conta != -1) {
+        contasFiltradas = contasFiltradas.filter(c => c.conta == conta)
       }
     }
 
