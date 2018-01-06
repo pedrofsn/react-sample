@@ -11,11 +11,11 @@ export class ResumoConta extends React.Component<Props> {
 
     return (
       <div>
+        <h1>Contas & Transações</h1>
         {
           contas.map(
             (conta) => {
               return <div>
-                <h1>Contas & Transações</h1>
                 <strong key={conta.id}> Nome: {conta.nome} | Conta: {conta.conta} | Saldo: R$ {conta.saldo} </strong>
                 <br />
                 {
@@ -33,6 +33,7 @@ export class ResumoConta extends React.Component<Props> {
                     }
                   )
                 }
+                <br />
               </div>
             }
           )
