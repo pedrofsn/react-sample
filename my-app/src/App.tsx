@@ -103,7 +103,7 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
     this.setState({ contas: this.state.contasTemp, contasTemp: this.state.contasTemp, filtrando: false })
   }
 
-  handleFiltrar(nome: String, conta: number/*, valor: number, isCredito: boolean*/) {
+  handleFiltrar(nome: String, conta: number) {
     const contasTemp = new Array<Conta>()
     let contasFiltradas = this.state.contas
 
@@ -135,15 +135,6 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
         }
       }
     }
-/*
-    if (
-      (conta == -1 || conta == undefined) &&
-      (nome == '' || nome == undefined)
-    ) {
-      contasFiltradas = contasTemp
-      filtrando = false
-    }
-*/
 
     this.setState({ contas: contasFiltradas, contasTemp: contasTemp, filtrando: true })
   }

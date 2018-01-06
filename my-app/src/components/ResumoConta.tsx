@@ -4,13 +4,19 @@ import { Conta } from '../models/Conta';
 export default interface Props {
   filtrando: boolean;
   contas: Conta[];
-  filtrar: (nome: String, conta: number/*, valor: number, isCredito: boolean*/) => {};
+  filtrar: (nome: String, conta: number) => {};
   limparFiltros: () => {};
 }
 
 export class ResumoConta extends React.Component<Props, {}> {
 
   handleLimparFiltros(e : any) {
+    const inputNome = (this.refs['nome'] as any as HTMLInputElement)
+    const inputConta = (this.refs['conta'] as any as HTMLInputElement)
+
+    inputNome.value = ''
+    inputConta.value = ''
+
     this.props.limparFiltros();
     e.preventDefault()
   }
@@ -18,18 +24,13 @@ export class ResumoConta extends React.Component<Props, {}> {
   handleSubmit(e: any) {
     const inputNome = (this.refs['nome'] as any as HTMLInputElement)
     const inputConta = (this.refs['conta'] as any as HTMLInputElement)
-    // const inputValor = (this.refs['valor'] as any as HTMLInputElement)
-    // const inputCheckbox = (this.refs['credito'] as any as HTMLInputElement)
 
     const nome = inputNome.value.trim();
     const conta = inputConta.value.trim();
-    // const valor = inputValor.value.trim();
-    // const isCredito = inputCheckbox.checked;
 
     let contaNumber = (conta != '') ? parseInt(conta) : -1
-    // let valorNumber = (valor != '') ? parseInt(valor) : -1
 
-    this.props.filtrar(nome, contaNumber/*, valorNumber, isCredito*/);
+    this.props.filtrar(nome, contaNumber);
 
     e.preventDefault();
   }
