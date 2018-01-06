@@ -46,7 +46,7 @@ export class AdicionarTransacao extends React.Component<MyProps, {}> {
     render() {
         return (
             <div>
-                <h3>Adicionar Transação</h3>
+                <h1>Adicionar Transação</h1>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div>
                         <label>Descrição</label><br />

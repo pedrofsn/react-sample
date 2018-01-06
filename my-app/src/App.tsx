@@ -90,14 +90,15 @@ class App extends React.Component<{}, { contas: Conta[] }> {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Gerenciamento Financeiro</h2>
         </div>
-        <br />
-        <ResumoConta contas={this.state.contas} />
-        <br />
-        <br />
-        <AdicionarConta adicionarConta={this.handleAdicionarConta.bind(this)}/>
-        <br />
-        <br />
-        <AdicionarTransacao adicionarTransacao={this.handleAdicionarTransacao.bind(this)} />
+        <div className="coluna">
+          <ResumoConta contas={this.state.contas} />
+        </div>
+        <div className="coluna">
+          <AdicionarConta adicionarConta={this.handleAdicionarConta.bind(this)} />
+        </div>
+        <div className="coluna">
+          <AdicionarTransacao adicionarTransacao={this.handleAdicionarTransacao.bind(this)} />
+        </div>
       </div>
     );
   }

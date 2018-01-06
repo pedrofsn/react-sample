@@ -37,7 +37,7 @@ export class AdicionarConta extends React.Component<MyProps, {}> {
     render() {
         return (
             <div>
-                <h3>Adicionar Conta</h3>
+                <h1>Adicionar Conta</h1>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div>
                         <label>Descrição</label><br />

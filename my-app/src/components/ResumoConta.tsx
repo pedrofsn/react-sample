@@ -15,9 +15,8 @@ export class ResumoConta extends React.Component<Props> {
           contas.map(
             (conta) => {
               return <div>
-                <br />
-                <br />
-                <strong key={conta.id}> Nome: {conta.nome} | Conta: {conta.conta} | Saldo: {conta.saldo} </strong>
+                <h1>Contas & Transações</h1>
+                <strong key={conta.id}> Nome: {conta.nome} | Conta: {conta.conta} | Saldo: R$ {conta.saldo} </strong>
                 <br />
                 {
                   conta.transacoes.map(
