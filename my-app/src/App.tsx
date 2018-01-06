@@ -8,11 +8,26 @@ import { Transacao } from './models/Transacao';
 
 const logo = require('./logo.svg');
 
-class App extends React.Component<{}, { contas: Conta[] }> {
+class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[] }> {
 
   componentWillMount() {
     this.state = {
+      contasTemp: [],
       contas: [
+        {
+          id: 1,
+          nome: "Caixa",
+          conta: 12,
+          saldo: 100,
+          transacoes: [
+            {
+              isCredito: true,
+              nome: "Bitcoin",
+              data: new Date(),
+              valor: 100
+            }
+          ]
+        },
         {
           id: 2,
           nome: "Itaú",
@@ -83,6 +98,32 @@ class App extends React.Component<{}, { contas: Conta[] }> {
     }
   }
 
+  handleFiltrar(nome: String, conta: number, valor: number, isCredito: boolean) {
+    const contasBackup = new Array<Conta>()
+    let contasFiltradas = this.state.contas
+
+    // Backupando contas existentes
+    if (this.state.contasTemp.length == 0) {
+      contasFiltradas.forEach(conta => contasBackup.push(conta))
+    } else {
+      const { contasTemp } = this.state
+      contasTemp.forEach(conta => contasBackup.push(conta))
+    }
+
+    if (contasFiltradas.length > 0 && nome != '') {
+      for (let i = 0; i < contasFiltradas.length; i++) {
+        let caso = contasFiltradas[i].nome === nome
+        if (!caso && i > -1) {
+          contasFiltradas.splice(i, 1);
+        }
+      }
+    } else if (nome == '' || nome == undefined) {
+      contasFiltradas = contasBackup
+    }
+
+    this.setState({ contas: contasFiltradas, contasTemp: contasBackup })
+  }
+
   render() {
     return (
       <div className="App">
@@ -91,7 +132,7 @@ class App extends React.Component<{}, { contas: Conta[] }> {
           <h2>Gerenciamento Financeiro</h2>
         </div>
         <div className="coluna">
-          <ResumoConta contas={this.state.contas} />
+          <ResumoConta contas={this.state.contas} filtrar={this.handleFiltrar.bind(this)} />
         </div>
         <div className="coluna">
           <AdicionarConta adicionarConta={this.handleAdicionarConta.bind(this)} />
