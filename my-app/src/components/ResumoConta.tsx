@@ -2,33 +2,40 @@ import * as React from 'react';
 import { Conta } from '../models/Conta';
 
 export default interface Props {
+  filtrando: boolean;
   contas: Conta[];
-  filtrar: (nome: String, conta: number, valor: number, isCredito: boolean) => {};
+  filtrar: (nome: String, conta: number/*, valor: number, isCredito: boolean*/) => {};
+  limparFiltros: () => {};
 }
 
 export class ResumoConta extends React.Component<Props, {}> {
 
+  handleLimparFiltros(e : any) {
+    this.props.limparFiltros();
+    e.preventDefault()
+  }
+
   handleSubmit(e: any) {
     const inputNome = (this.refs['nome'] as any as HTMLInputElement)
     const inputConta = (this.refs['conta'] as any as HTMLInputElement)
-    const inputValor = (this.refs['valor'] as any as HTMLInputElement)
-    const inputCheckbox = (this.refs['credito'] as any as HTMLInputElement)
+    // const inputValor = (this.refs['valor'] as any as HTMLInputElement)
+    // const inputCheckbox = (this.refs['credito'] as any as HTMLInputElement)
 
     const nome = inputNome.value.trim();
     const conta = inputConta.value.trim();
-    const valor = inputValor.value.trim();
-    const isCredito = inputCheckbox.checked;
+    // const valor = inputValor.value.trim();
+    // const isCredito = inputCheckbox.checked;
 
     let contaNumber = (conta != '') ? parseInt(conta) : -1
-    let valorNumber = (valor != '') ? parseInt(valor) : -1
+    // let valorNumber = (valor != '') ? parseInt(valor) : -1
 
-    this.props.filtrar(nome, contaNumber, valorNumber, isCredito);
+    this.props.filtrar(nome, contaNumber/*, valorNumber, isCredito*/);
 
     e.preventDefault();
   }
 
   render() {
-    const { contas } = this.props;
+    const { contas, filtrando } = this.props;
 
     return (
       <div>
@@ -41,20 +48,18 @@ export class ResumoConta extends React.Component<Props, {}> {
                 <td>Filtrar contas</td>
               </tr>
               <tr>
-                <td><input type="text" ref="nome" placeholder="Nome" /></td>
-                <td><input type="text" ref="conta" placeholder="Conta" /></td>
+                <td><input type="text" ref="nome" placeholder="Nome exato" disabled={filtrando} /></td>
+                <td><input type="text" ref="conta" placeholder="Conta exata" disabled={filtrando} /></td>
               </tr>
               <tr>
-                <td>Filtrar transações</td>
-              </tr>
-              <tr>
-                <td><input type="text" ref="valor" placeholder="Valor" /></td>
-                <td><label>Crédito: </label><input type="checkbox" ref="credito" /></td>
-                <td><input type="submit" value="Filtrar" onClick={this.handleSubmit.bind(this)} /></td>
+                <td><input type="submit" value="Filtrar" onClick={this.handleSubmit.bind(this)} style={!filtrando ? {} : { display: 'none' }} /></td>
               </tr>
             </tbody>
           </table>
         </form>
+        <br />
+        <br />
+        <input type="button" style={filtrando ? {} : { display: 'none' }} value="Limpar filtros aplicados" onClick={this.handleLimparFiltros.bind(this)}/>
         <br />
         <br />
         {
