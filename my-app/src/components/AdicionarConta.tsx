@@ -47,8 +47,8 @@ export class AdicionarConta extends React.Component<MyProps, {}> {
                         <label>Conta</label><br />
                         <input type="text" ref="conta" />
                     </div>
-                    <input type="submit" value="Criar Conta" />
                     <br />
+                    <input type="submit" value="Criar Conta" />
                 </form>
             </div>
         );
