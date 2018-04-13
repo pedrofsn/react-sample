@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { ResumoConta } from './components/ResumoConta';
-import { AdicionarTransacao } from './components/AdicionarTransacao';
-import { AdicionarConta } from './components/AdicionarConta';
 import { Conta } from './models/Conta';
 import './App.css';
 import { Transacao } from './models/Transacao';
+import './css/pure-min.css';
+import './css/side-menu.css';
+import {Link} from 'react-router-dom';
 
-const logo = require('./logo.svg');
+
+//const logo = require('./logo.svg');
 
 class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], filtrando: boolean }> {
 
@@ -19,13 +20,26 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
           id: 1,
           nome: "Caixa",
           conta: 12,
+          descricao: "Minha conta poupança da CAIXA",
           saldo: 100,
           transacoes: [
             {
-              isCredito: true,
+              tipo: "Crédito",
               nome: "Bitcoin",
               data: new Date(),
               valor: 100
+            },
+            {
+              tipo: "Crédito",
+              nome: "Salário",
+              data: new Date(),
+              valor: 50
+            },
+            {
+              tipo: "Crédito",
+              nome: "Freelancer",
+              data: new Date(),
+              valor: 1080
             }
           ]
         },
@@ -33,10 +47,11 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
           id: 2,
           nome: "Itaú",
           conta: 1234,
+          descricao: "Minha conta poupança da CAIXA",
           saldo: 300,
           transacoes: [
             {
-              isCredito: true,
+              tipo: "Crédito",
               nome: "Depósito",
               data: new Date(),
               valor: 300
@@ -47,25 +62,6 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
     }
   }
 
-  handleAdicionarConta(novaConta: Conta) {
-    let myContas = this.state.contas
-    let match = false
-
-    for (let i = 0; i < myContas.length; i++) {
-      // Conta existe?
-      if (myContas[i].conta === novaConta.conta || novaConta.id === myContas[i].id) {
-        match = true
-        break
-      }
-    }
-
-    if (!match) {
-      myContas.push(novaConta);
-      this.setState({ contas: myContas })
-    } else {
-      alert('Conta já existente')
-    }
-  }
 
   handleAdicionarTransacao(conta: number, transacao: Transacao) {
     let myContas = this.state.contas
@@ -80,7 +76,7 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
         // computar saldo
         let saldo: number = 0
         for (let j = 0; j < myContas[i].transacoes.length; j++) {
-          if (myContas[i].transacoes[j].isCredito) {
+          if (myContas[i].transacoes[j].tipo) {
             saldo += myContas[i].transacoes[j].valor
           } else {
             saldo -= myContas[i].transacoes[j].valor
@@ -132,22 +128,21 @@ class App extends React.Component<{}, { contas: Conta[], contasTemp: Conta[], fi
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Gerenciamento Financeiro</h2>
-        </div>
-        <div className="coluna">
-          <ResumoConta contas={this.state.contas} filtrando={this.state.filtrando}
-            filtrar={this.handleFiltrar.bind(this)} limparFiltros={this.handleLimparFiltros.bind(this)} />
-        </div>
-        <div className="coluna">
-          <AdicionarConta adicionarConta={this.handleAdicionarConta.bind(this)} />
-        </div>
-        <div className="coluna">
-          <AdicionarTransacao adicionarTransacao={this.handleAdicionarTransacao.bind(this)} />
-        </div>
+      <div id="layout">
+        <div id="menu">
+          <div className="pure-menu">
+
+              <ul className="pure-menu-list">
+                  <li className="pure-menu-item"><Link to="/home" className="pure-menu-link">Home</Link></li>
+                  <li className="pure-menu-item"><Link to="/addconta" className="pure-menu-link">Cadastrar Conta</Link></li>
+                  <li className="pure-menu-item"><Link to="/transacoes" className="pure-menu-link">Transações</Link></li>
+              </ul>
+          </div>
       </div>
+      <div className="App">
+        {this.props.children}
+      </div>
+    </div>
     );
   }
 }

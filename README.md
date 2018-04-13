@@ -2,6 +2,10 @@
 ![Print do projeto](https://github.com/pedrofsn/react-sample/raw/master/print.png)
 Este projeto foi criado para ter um primeiro contato com o framework React.
 
+## Alunos
+- Pedro Francisco de Sousa Neto
+- Fernanda Stefani Souza Malaquias
+
 ## Funcionalidades
 - Criação de contas
 - Lançamento de transações de crédito e débito
